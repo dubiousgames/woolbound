@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Woolbound — Crafted by Hand, Bound by Magic</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --deep: #1a1510;
+    --stone: #2a2420;
+    --stone-light: #3a3028;
+    --ember: #c8622a;
+    --gold: #d4a843;
+    --gold-bright: #f0c060;
+    --cream: #f0e6d0;
+    --mist: #9a8878;
+    --moss: #4a6741;
+    --crack: #d4a843;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--deep);
+    color: var(--cream);
+    font-family: 'Lora', serif;
+    font-size: 20px;
+    overflow-x: hidden;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='4' fill='%23d4a843' opacity='0.8'/%3E%3C/svg%3E") 10 10, auto;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+  }
+
+  /* Stone texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 20%, rgba(212,168,67,0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(212,168,67,0.02) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Gold crack veins running through the page */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      /* VERY distant cracks — ghost thin */
+      linear-gradient(33deg, transparent 15%, rgba(212,168,67,0.006) 15.1%, rgba(212,168,67,0.006) 15.2%, transparent 15.3%),
+      linear-gradient(210deg, transparent 88%, rgba(212,168,67,0.006) 88.1%, rgba(212,168,67,0.006) 88.2%, transparent 88.3%),
+      linear-gradient(320deg, transparent 42%, rgba(212,168,67,0.005) 42.1%, rgba(212,168,67,0.005) 42.2%, transparent 42.3%),
+      linear-gradient(110deg, transparent 75%, rgba(212,168,67,0.005) 75.1%, rgba(212,168,67,0.005) 75.2%, transparent 75.3%),
+      linear-gradient(245deg, transparent 33%, rgba(212,168,67,0.004) 33.1%, rgba(212,168,67,0.004) 33.15%, transparent 33.2%),
+      linear-gradient(67deg, transparent 58%, rgba(212,168,67,0.004) 58.1%, rgba(212,168,67,0.004) 58.15%, transparent 58.2%),
+      /* Far cracks — very faint, very thin */
+      linear-gradient(143deg, transparent 40%, rgba(212,168,67,0.012) 40.2%, rgba(212,168,67,0.012) 40.4%, transparent 40.6%),
+      linear-gradient(22deg, transparent 68%, rgba(212,168,67,0.012) 68.2%, rgba(212,168,67,0.012) 68.35%, transparent 68.5%),
+      linear-gradient(288deg, transparent 25%, rgba(212,168,67,0.01) 25.2%, rgba(212,168,67,0.01) 25.35%, transparent 25.5%),
+      linear-gradient(170deg, transparent 80%, rgba(212,168,67,0.01) 80.2%, rgba(212,168,67,0.01) 80.35%, transparent 80.5%),
+      linear-gradient(95deg, transparent 50%, rgba(212,168,67,0.01) 50.2%, rgba(212,168,67,0.01) 50.35%, transparent 50.5%),
+      /* Mid cracks — moderate glow, medium thickness */
+      linear-gradient(78deg, transparent 30%, rgba(212,168,67,0.035) 30.3%, rgba(212,168,67,0.055) 30.7%, rgba(212,168,67,0.035) 31.1%, transparent 31.5%),
+      linear-gradient(195deg, transparent 45%, rgba(212,168,67,0.03) 45.3%, rgba(212,168,67,0.05) 45.65%, rgba(212,168,67,0.03) 46%, transparent 46.3%),
+      linear-gradient(340deg, transparent 62%, rgba(212,168,67,0.035) 62.3%, rgba(212,168,67,0.055) 62.65%, rgba(212,168,67,0.035) 63%, transparent 63.3%),
+      linear-gradient(55deg, transparent 72%, rgba(212,168,67,0.03) 72.3%, rgba(212,168,67,0.05) 72.65%, rgba(212,168,67,0.03) 73%, transparent 73.3%),
+      linear-gradient(260deg, transparent 18%, rgba(212,168,67,0.035) 18.3%, rgba(212,168,67,0.055) 18.65%, rgba(212,168,67,0.035) 19%, transparent 19.3%),
+      /* CLOSE cracks — blazing bright, thick, glowing edges */
+      linear-gradient(127deg, transparent 19.5%, rgba(212,168,67,0.04) 20%, rgba(212,168,67,0.18) 21%, rgba(240,192,96,0.25) 21.5%, rgba(212,168,67,0.18) 22%, rgba(212,168,67,0.04) 22.5%, transparent 23%),
+      linear-gradient(230deg, transparent 34%, rgba(212,168,67,0.04) 34.5%, rgba(212,168,67,0.16) 35.5%, rgba(240,192,96,0.22) 36%, rgba(212,168,67,0.16) 36.5%, rgba(212,168,67,0.04) 37%, transparent 37.5%),
+      linear-gradient(15deg, transparent 54%, rgba(212,168,67,0.04) 54.5%, rgba(212,168,67,0.18) 55.5%, rgba(240,192,96,0.24) 56%, rgba(212,168,67,0.18) 56.5%, rgba(212,168,67,0.04) 57%, transparent 57.5%),
+      linear-gradient(310deg, transparent 9.5%, rgba(212,168,67,0.04) 10%, rgba(212,168,67,0.16) 11%, rgba(240,192,96,0.2) 11.5%, rgba(212,168,67,0.16) 12%, rgba(212,168,67,0.04) 12.5%, transparent 13%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Etched runes on stone */
+  .rune {
+    position: fixed;
+    font-size: 2rem;
+    color: var(--gold);
+    opacity: 0.08;
+    animation: runeGlow var(--d) ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+    text-shadow: 0 0 10px rgba(212,168,67,0.3);
+    filter: blur(0.5px);
+  }
+  @keyframes runeGlow {
+    from { opacity: 0.06; text-shadow: 0 0 5px rgba(212,168,67,0.2); }
+    to { opacity: 0.18; text-shadow: 0 0 20px rgba(212,168,67,0.6); }
+  }
+
+  /* Stars replaced with gold dust particles */
+  .stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  .star {
+    position: absolute;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: twinkle var(--d) ease-in-out infinite alternate;
+    box-shadow: 0 0 4px rgba(212,168,67,0.8);
+  }
+  @keyframes twinkle {
+    from { opacity: 0.05; transform: scale(0.8); }
+    to { opacity: 0.6; transform: scale(1.3); }
+  }
+
+  .page { position: relative; z-index: 1; }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(212,168,67,0.07) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  /* Stone block sections */
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(to right, transparent, var(--gold), rgba(212,168,67,0.3), var(--gold), transparent);
+    filter: blur(1px);
+  }
+
+  .sigil {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 2rem;
+    animation: rotateSigil 20s linear infinite;
+    filter: drop-shadow(0 0 15px rgba(212,168,67,0.5)) drop-shadow(0 0 40px rgba(212,168,67,0.2));
+  }
+  @keyframes rotateSigil {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .hero-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(3rem, 10vw, 7rem);
+    color: var(--gold);
+    text-shadow:
+      0 0 20px rgba(212,168,67,0.8),
+      0 0 60px rgba(212,168,67,0.3),
+      2px 2px 0px rgba(0,0,0,0.8);
+    letter-spacing: 0.05em;
+    line-height: 1;
+    animation: fadeUp 1.2s ease both;
+  }
+
+  .hero-sub {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    color: var(--mist);
+    margin-top: 1rem;
+    letter-spacing: 0.15em;
+    animation: fadeUp 1.2s 0.3s ease both;
+  }
+
+  .hero-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem 0;
+    animation: fadeUp 1.2s 0.5s ease both;
+  }
+  .hero-divider span { color: var(--gold); font-size: 1.2rem; text-shadow: 0 0 10px rgba(212,168,67,0.8); }
+  .hero-divider::before, .hero-divider::after {
+    content: '';
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold));
+    box-shadow: 0 0 4px rgba(212,168,67,0.5);
+  }
+  .hero-divider::after { background: linear-gradient(to left, transparent, var(--gold)); }
+
+  .hero-desc {
+    font-family: 'Lora', serif;
+    font-size: 1.1rem;
+    color: var(--cream);
+    opacity: 0.8;
+    max-width: 500px;
+    line-height: 1.8;
+    animation: fadeUp 1.2s 0.7s ease both;
+  }
+
+  .hero-btn {
+    margin-top: 2.5rem;
+    padding: 0.9rem 2.5rem;
+    border: 1px solid var(--gold);
+    background: rgba(212,168,67,0.05);
+    color: var(--gold);
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+    animation: fadeUp 1.2s 0.9s ease both;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(212,168,67,0.1), inset 0 0 15px rgba(212,168,67,0.05);
+  }
+  .hero-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    z-index: -1;
+  }
+  .hero-btn:hover { color: var(--deep); box-shadow: 0 0 30px rgba(212,168,67,0.4); }
+  .hero-btn:hover::before { transform: translateX(0); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--mist);
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    animation: bounce 2s ease-in-out infinite;
+    font-family: 'Lora', serif;
+    font-style: italic;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  section {
+    padding: 6rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 20px rgba(212,168,67,0.5), 2px 2px 0 rgba(0,0,0,0.8);
+  }
+
+  .section-sub {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    color: var(--mist);
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+  }
+
+  .ornament {
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.6;
+    font-size: 1.5rem;
+    margin: 1rem 0 3rem;
+    letter-spacing: 0.5em;
+    text-shadow: 0 0 10px rgba(212,168,67,0.6);
+  }
+
+  /* Stone product cards with gold crack borders */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .product-card {
+    border: 1px solid rgba(212,168,67,0.25);
+    background: linear-gradient(135deg, rgba(42,36,32,0.95) 0%, rgba(30,26,22,0.98) 100%);
+    padding: 2rem;
+    position: relative;
+    transition: all 0.4s;
+    overflow: hidden;
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.3), 0 4px 20px rgba(0,0,0,0.4);
+  }
+
+  /* Gold crack glow on hover */
+  .product-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(135deg, rgba(212,168,67,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at top left, rgba(212,168,67,0.06), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .product-card:hover {
+    border-color: rgba(212,168,67,0.7);
+    transform: translateY(-4px);
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.3), 0 8px 30px rgba(0,0,0,0.5), 0 0 20px rgba(212,168,67,0.15);
+  }
+  .product-card:hover::before { opacity: 1; }
+
+  .product-corner {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-color: var(--gold);
+    border-style: solid;
+    opacity: 0.7;
+    filter: drop-shadow(0 0 3px rgba(212,168,67,0.5));
+  }
+  .product-corner.tl { top: 8px; left: 8px; border-width: 2px 0 0 2px; }
+  .product-corner.tr { top: 8px; right: 8px; border-width: 2px 2px 0 0; }
+  .product-corner.bl { bottom: 8px; left: 8px; border-width: 0 0 2px 2px; }
+  .product-corner.br { bottom: 8px; right: 8px; border-width: 0 2px 2px 0; }
+
+  .product-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+
+  .product-name {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1rem;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 10px rgba(212,168,67,0.3);
+  }
+
+  .product-lore {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--mist);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+
+  .product-desc {
+    font-size: 1.05rem;
+    color: var(--cream);
+    opacity: 0.7;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .product-price {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.1rem;
+    color: var(--ember);
+    text-shadow: 0 0 8px rgba(200,98,42,0.4);
+  }
+
+  .product-badge {
+    display: inline-block;
+    padding: 0.2rem 0.7rem;
+    border: 1px solid var(--moss);
+    color: #7ab870;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    font-family: 'Lora', serif;
+    margin-left: 0.5rem;
+  }
+
+  /* Story section — deep stone chamber */
+  .story-section {
+    background: linear-gradient(180deg, rgba(20,16,12,0.8) 0%, rgba(26,21,16,0.9) 100%);
+    border-top: 2px solid transparent;
+    border-bottom: 2px solid transparent;
+    border-image: linear-gradient(to right, transparent, rgba(212,168,67,0.4), transparent) 1;
+    padding: 6rem 2rem;
+    position: relative;
+  }
+
+  .story-section::before {
+    content: 'ᚹ ᚱ ᛟ ᚦ ᛗ ᛁ ᚹ ᚱ ᛟ ᚦ ᛗ ᛁ ᚹ ᚱ ᛟ';
+    position: absolute;
+    top: 1rem;
+    left: 0; right: 0;
+    text-align: center;
+    font-size: 1rem;
+    color: var(--gold);
+    opacity: 0.12;
+    letter-spacing: 0.5em;
+  }
+
+  .story-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+
+  .story-text {
+    font-family: 'Lora', serif;
+    font-size: 1.15rem;
+    line-height: 2;
+    color: var(--cream);
+    opacity: 0.85;
+  }
+  .story-text em { color: var(--gold); font-style: italic; text-shadow: 0 0 8px rgba(212,168,67,0.3); }
+
+  /* Contact */
+  .contact-box {
+    border: 1px solid rgba(212,168,67,0.25);
+    background: linear-gradient(135deg, rgba(42,36,32,0.95), rgba(26,21,16,0.98));
+    padding: 3rem;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.4), 0 0 30px rgba(212,168,67,0.05);
+  }
+
+  .contact-box input, .contact-box textarea {
+    width: 100%;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(212,168,67,0.2);
+    color: var(--cream);
+    padding: 0.8rem 1rem;
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .contact-box input:focus, .contact-box textarea:focus {
+    border-color: rgba(212,168,67,0.6);
+    box-shadow: 0 0 10px rgba(212,168,67,0.1);
+  }
+  .contact-box textarea { height: 120px; resize: none; }
+  .contact-box input::placeholder, .contact-box textarea::placeholder {
+    color: var(--mist);
+    opacity: 0.5;
+    font-style: italic;
+  }
+
+  /* Nav */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(20,16,12,0.95), transparent);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(212,168,67,0.1);
+  }
+
+  .nav-brand {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 10px rgba(212,168,67,0.4);
+  }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--cream);
+    text-decoration: none;
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    opacity: 0.7;
+    transition: opacity 0.3s, color 0.3s, text-shadow 0.3s;
+    letter-spacing: 0.05em;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--gold); text-shadow: 0 0 8px rgba(212,168,67,0.5); }
+
+  /* Gold crack divider */
+  .glow-line {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, transparent, rgba(212,168,67,0.15), rgba(212,168,67,0.4), rgba(212,168,67,0.15), transparent);
+    margin: 0 auto;
+    filter: blur(0.5px);
+    box-shadow: 0 0 8px rgba(212,168,67,0.2);
+  }
+
+  footer {
+    border-top: 1px solid rgba(212,168,67,0.15);
+    padding: 3rem 2rem;
+    text-align: center;
+    color: var(--mist);
+    opacity: 0.6;
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1rem;
+    background: linear-gradient(to top, rgba(10,8,6,0.8), transparent);
+  }
+
+  /* Floating runes that drift across */
+  .float-rune {
+    position: fixed;
+    font-size: 1.5rem;
+    color: var(--gold);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    text-shadow: 0 0 15px rgba(212,168,67,0.8);
+    animation: floatAcross var(--dur) var(--delay) linear infinite;
+  }
+  @keyframes floatAcross {
+    0%   { transform: translate(var(--startX), var(--startY)) rotate(0deg); opacity: 0; }
+    10%  { opacity: var(--maxOpacity); }
+    90%  { opacity: var(--maxOpacity); }
+    100% { transform: translate(var(--endX), var(--endY)) rotate(var(--rot)); opacity: 0; }
+  }
+
+  /* Ember particles drifting upward */
+  .ember {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(circle, rgba(240,192,96,1) 0%, rgba(212,168,67,0.8) 40%, transparent 70%);
+    animation: emberRise var(--dur) var(--delay) ease-in infinite;
+    opacity: 0;
+  }
+  @keyframes emberRise {
+    0%   { transform: translate(0, 0) scale(1); opacity: 0; }
+    10%  { opacity: 1; }
+    50%  { transform: translate(var(--drift), -40vh) scale(0.7); opacity: 0.8; }
+    100% { transform: translate(var(--drift2), -90vh) scale(0.2); opacity: 0; }
+  }
+
+  /* Pulsing gold crack glow */
+  @keyframes crackPulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+  }
+  .crack-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    animation: crackPulse 4s ease-in-out infinite;
+  }
+
+  /* Candlelight flicker on whole page */
+  @keyframes candleFlicker {
+    0%,100% { filter: brightness(1) contrast(1); }
+    8%  { filter: brightness(0.97) contrast(1.01); }
+    15% { filter: brightness(1.02) contrast(0.99); }
+    22% { filter: brightness(0.96) contrast(1.02); }
+    35% { filter: brightness(1.01) contrast(1); }
+    47% { filter: brightness(0.98) contrast(1.01); }
+    60% { filter: brightness(1.03) contrast(0.98); }
+    72% { filter: brightness(0.97) contrast(1.01); }
+    85% { filter: brightness(1.01) contrast(1); }
+  }
+  .page { animation: candleFlicker 8s ease-in-out infinite; }
+
+  /* Sigil glow pulse */
+  @keyframes sigilGlow {
+    0%,100% { filter: drop-shadow(0 0 15px rgba(212,168,67,0.5)) drop-shadow(0 0 40px rgba(212,168,67,0.2)); }
+    50% { filter: drop-shadow(0 0 30px rgba(212,168,67,0.9)) drop-shadow(0 0 80px rgba(212,168,67,0.4)) drop-shadow(0 0 120px rgba(212,168,67,0.15)); }
+  }
+  .sigil { animation: rotateSigil 20s linear infinite, sigilGlow 3s ease-in-out infinite; }
+
+  /* Coming soon banner */
+  .coming-soon {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(200,98,42,0.08);
+    border: 1px solid rgba(200,98,42,0.3);
+    color: var(--ember);
+    font-family: 'Lora', serif;
+    font-style: italic;
+    letter-spacing: 0.1em;
+    font-size: 1rem;
+    margin-bottom: 3rem;
+    box-shadow: inset 0 0 20px rgba(200,98,42,0.05);
+  }
+
+  /* ── MOBILE STYLES ── */
+  @media (max-width: 768px) {
+    body { font-size: 16px; }
+
+    nav { padding: 0.8rem 1rem; }
+    .nav-links { gap: 0.8rem; }
+    .nav-links a { font-size: 0.8rem; }
+    .nav-brand { font-size: 0.85rem; }
+
+    .hero { padding: 5rem 1.2rem 2rem; }
+    .hero-title { font-size: clamp(2.2rem, 12vw, 3.5rem); }
+    .sigil { width: 80px; height: 80px; }
+    .hero-desc { font-size: 1rem; }
+
+    section { padding: 3rem 1rem; }
+    .story-section { padding: 3rem 1rem; }
+
+    .products-grid { grid-template-columns: 1fr; }
+
+    #pouchPanel {
+      width: 100vw !important;
+      right: -105vw !important;
+    }
+
+    .contact-box { padding: 1.5rem 1rem; }
+    .hero-divider::before, .hero-divider::after { width: 30px; }
+
+    .rune { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Stars -->
+<div class="stars" id="stars"></div>
+
+<!-- Runes -->
+<div class="rune" style="top:12%;left:3%;--d:5s">ᚹ</div>
+<div class="rune" style="top:28%;right:4%;--d:7s">ᚱ</div>
+<div class="rune" style="top:55%;left:2%;--d:6s">ᛟ</div>
+<div class="rune" style="top:68%;right:3%;--d:8s">ᚦ</div>
+<div class="rune" style="top:40%;left:94%;--d:5.5s">ᛗ</div>
+<div class="rune" style="top:82%;left:6%;--d:7.5s">ᛁ</div>
+<div class="rune" style="top:20%;left:90%;--d:4.5s">ᚠ</div>
+<div class="rune" style="top:75%;right:7%;--d:6.5s">ᚾ</div>
+<div class="rune" style="top:5%;left:45%;--d:9s">ᛉ</div>
+
+<!-- Nav -->
+<nav>
+  <a href="#" class="nav-brand">Woolbound</a>
+  <ul class="nav-links">
+    <li><a href="#wares">Wares</a></li>
+    <li><a href="#lore">Our Story</a></li>
+    <li><a href="#summon">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+
+  <!-- Hero -->
+  <div class="hero">
+    <!-- Sigil SVG -->
+    <svg class="sigil" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="60" cy="60" r="55" stroke="#d4a843" stroke-width="0.5" opacity="0.4"/>
+      <circle cx="60" cy="60" r="45" stroke="#d4a843" stroke-width="0.5" opacity="0.3"/>
+      <polygon points="60,10 110,90 10,90" stroke="#d4a843" stroke-width="0.8" fill="none" opacity="0.5"/>
+      <polygon points="60,110 10,30 110,30" stroke="#d4a843" stroke-width="0.8" fill="none" opacity="0.5"/>
+      <circle cx="60" cy="60" r="6" fill="#d4a843" opacity="0.6"/>
+      <circle cx="60" cy="60" r="3" fill="#d4a843"/>
+      <line x1="60" y1="5" x2="60" y2="20" stroke="#d4a843" stroke-width="0.8" opacity="0.6"/>
+      <line x1="60" y1="100" x2="60" y2="115" stroke="#d4a843" stroke-width="0.8" opacity="0.6"/>
+      <line x1="5" y1="60" x2="20" y2="60" stroke="#d4a843" stroke-width="0.8" opacity="0.6"/>
+      <line x1="100" y1="60" x2="115" y2="60" stroke="#d4a843" stroke-width="0.8" opacity="0.6"/>
+    </svg>
+
+    <h1 class="hero-title">Woolbound</h1>
+    <p class="hero-sub">Crafted by Hand &nbsp;·&nbsp; Bound by Magic</p>
+
+    <div class="hero-divider"><span>✦</span></div>
+
+    <p class="hero-desc">Each piece woven with intention, carrying warmth from maker's hands to yours. Small batch. Handmade. Enchanted.</p>
+
+    <a href="#wares" class="hero-btn">Browse the Wares</a>
+
+    <div class="scroll-hint">scroll onward ↓</div>
+  </div>
+
+  <!-- Products -->
+  <section id="wares">
+    <h2 class="section-title">The Wares</h2>
+    <p class="section-sub">— each piece finger-knitted by hand —</p>
+    <div class="ornament">✦ ✦ ✦</div>
+
+    <div class="coming-soon">⚠ Shop coming soon — send a message below to order directly</div>
+
+    <div class="products-grid">
+
+    <div class="products-grid">
+
+      <!-- Enchanted Band -->
+      <div class="product-card" onclick="openProduct('band')" style="cursor:pointer;">
+        <div class="product-corner tl"></div>
+        <div class="product-corner tr"></div>
+        <div class="product-corner bl"></div>
+        <div class="product-corner br"></div>
+        <img src="https://i.postimg.cc/nh9NkXDZ/IMG_20260312_142431517_MFNR.jpg" alt="Enchanted Band" style="width:100%;border-radius:2px;margin-bottom:1rem;object-fit:cover;height:200px;border:2px solid rgba(212,168,67,0.7);box-shadow:0 0 12px rgba(212,168,67,0.3), inset 0 0 12px rgba(0,0,0,0.4), 4px 4px 0 rgba(212,168,67,0.15), -4px -4px 0 rgba(212,168,67,0.15);outline:1px solid rgba(212,168,67,0.2);outline-offset:3px;">
+        <div class="product-name">Enchanted Band</div>
+        <div class="product-lore">"A small magic, worn on the wrist"</div>
+        <div class="product-desc">A handmade finger-knitted bracelet. Small, quick to make and full of charm. Each one is unique — no two are exactly alike.</div>
+        <div class="product-price">£3.50 <span class="product-badge" style="border-color:#4a6741;color:#7ab870;">In Stock</span></div>
+      </div>
+
+      <!-- Traveller's Pouch card -->
+      <div class="product-card no-fade" onclick="openProduct('pouch')" style="cursor:pointer;">
+        <div class="product-corner tl"></div>
+        <div class="product-corner tr"></div>
+        <div class="product-corner bl"></div>
+        <div class="product-corner br"></div>
+        <div id="pouchSlideshow" style="width:100%;height:200px;margin-bottom:1rem;position:relative;overflow:hidden;border:2px solid rgba(212,168,67,0.7);box-shadow:0 0 12px rgba(212,168,67,0.3), inset 0 0 12px rgba(0,0,0,0.4), 4px 4px 0 rgba(212,168,67,0.15), -4px -4px 0 rgba(212,168,67,0.15);outline:1px solid rgba(212,168,67,0.2);outline-offset:3px;">
+          <img id="slideImg" src="https://i.postimg.cc/sfKR8qCf/pencul-case.jpg" alt="Traveller's Pouches" style="width:100%;height:100%;object-fit:cover;transition:opacity 0.8s ease;">
+          <div style="position:absolute;bottom:6px;left:50%;transform:translateX(-50%);display:flex;gap:5px;">
+            <div class="slide-dot active-dot" style="width:6px;height:6px;border-radius:50%;background:rgba(212,168,67,0.9);transition:opacity 0.3s;"></div>
+            <div class="slide-dot" style="width:6px;height:6px;border-radius:50%;background:rgba(212,168,67,0.3);transition:opacity 0.3s;"></div>
+            <div class="slide-dot" style="width:6px;height:6px;border-radius:50%;background:rgba(212,168,67,0.3);transition:opacity 0.3s;"></div>
+          </div>
+        </div>
+        <div class="product-name">Traveller's Pouch</div>
+        <div class="product-lore">"Every adventurer needs somewhere to keep their treasures"</div>
+        <div class="product-desc">Handmade chunky finger-knitted pouches in three sizes — trinket, phone, and pencil. Click to explore all styles. From £6.</div>
+        <div class="product-price" style="display:flex;align-items:center;justify-content:space-between;">
+          <span>From £6</span>
+          <span style="font-family:'IM Fell English',serif;font-style:italic;font-size:0.85rem;color:var(--mist);opacity:0.8;">browse styles →</span>
+        </div>
+      </div>
+
+      <div class="product-card" style="opacity:0.6;">
+        <div class="product-corner tl"></div>
+        <div class="product-corner tr"></div>
+        <div class="product-corner bl"></div>
+        <div class="product-corner br"></div>
+        <span class="product-icon">🧣</span>
+        <div class="product-name">The Infinite Curve</div>
+        <div class="product-lore">"Endless as the road, warm as sitting by a fire"</div>
+        <div class="product-desc">Loop scarf in chunky finger-knitted wool. Cosy, fluffy and endlessly wearable. A perfect companion for cold mornings and misty evenings.</div>
+        <div class="product-price">£14 <span class="product-badge" style="border-color:rgba(200,98,42,0.5);color:var(--ember);">Coming Soon</span></div>
+      </div>
+
+      <div class="product-card" style="opacity:0.6;">
+        <div class="product-corner tl"></div>
+        <div class="product-corner tr"></div>
+        <div class="product-corner bl"></div>
+        <div class="product-corner br"></div>
+        <span class="product-icon">🧣</span>
+        <div class="product-name">Traveller's Scarf</div>
+        <div class="product-lore">"For those who brave the cold roads"</div>
+        <div class="product-desc">A chunky finger-knitted scarf to keep you warm on your adventures. Fluffy, cosy and handmade with care. Available in a range of colours.</div>
+        <div class="product-price">£16 <span class="product-badge" style="border-color:rgba(200,98,42,0.5);color:var(--ember);">Coming Soon</span></div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-corner tl"></div>
+        <div class="product-corner tr"></div>
+        <div class="product-corner bl"></div>
+        <div class="product-corner br"></div>
+        <span class="product-icon">🧤</span>
+        <div class="product-name">Spellweaver's Fingerless Gloves</div>
+        <div class="product-lore">"Hands that craft magic deserve to be warm"</div>
+        <div class="product-desc">Chunky finger-knitted fingerless gloves, handmade to order. Soft, fluffy and cosy — keep your hands warm while your fingers stay free.</div>
+        <div class="product-price">£10 <span class="product-badge">Made to Order</span></div>
+      </div>
+
+      <div class="product-card" style="opacity:0.6;">
+        <div class="product-corner tl"></div>
+        <div class="product-corner tr"></div>
+        <div class="product-corner bl"></div>
+        <div class="product-corner br"></div>
+        <span class="product-icon">🎩</span>
+        <div class="product-name">Enchanter's Hat</div>
+        <div class="product-lore">"Every enchanter needs their crown"</div>
+        <div class="product-desc">A handmade chunky knitted hat, made to order. Warm, fluffy and full of character — no two are exactly alike.</div>
+        <div class="product-price">£12 <span class="product-badge" style="border-color:rgba(200,98,42,0.5);color:var(--ember);">Coming Soon</span></div>
+      </div>
+
+      <div class="product-card" style="opacity:0.6;border-color:rgba(212,168,67,0.4);background:rgba(212,168,67,0.04);">
+        <div class="product-corner tl"></div>
+        <div class="product-corner tr"></div>
+        <div class="product-corner bl"></div>
+        <div class="product-corner br"></div>
+        <span class="product-icon">✨</span>
+        <div class="product-name">The Winter Bundle</div>
+        <div class="product-lore">"A full set for the seasoned adventurer"</div>
+        <div class="product-desc">Get the Traveller's Scarf, Spellweaver's Gloves and Enchanter's Hat together and save £6. The complete winter set, all handmade to order in your chosen colours.</div>
+        <div class="product-price">£32 <span style="text-decoration:line-through;opacity:0.5;font-size:0.9rem;margin-left:0.3rem">£38</span> <span class="product-badge" style="border-color:rgba(200,98,42,0.5);color:var(--ember);">Coming Soon</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="glow-line"></div>
+
+  <!-- Story -->
+  <div class="story-section" id="lore">
+    <div class="story-inner">
+      <h2 class="section-title">The Lore</h2>
+      <p class="section-sub">— how woolbound came to be —</p>
+      <div class="ornament">✦</div>
+      <p class="story-text">
+        Woolbound began as a small spell — a school project, a box of wool, and two hands learning to create something from nothing.<br><br>
+        Every piece is <em>finger-knitted by hand</em>, one loop at a time, with no machines and no shortcuts. Each pouch, each scarf, each cosy thing carries the time and intention of its maker.<br><br>
+        We believe handmade things carry a kind of magic that factory-made things never can. <em>When you hold something Woolbound, you hold something real.</em>
+      </p>
+    </div>
+  </div>
+
+  <div class="glow-line"></div>
+
+  <!-- Contact -->
+  <section id="summon">
+    <h2 class="section-title">Send a Summons</h2>
+    <p class="section-sub">— orders, questions, custom requests —</p>
+    <div class="ornament">✦</div>
+
+    <!-- Care & Refund Policy -->
+    <div style="max-width:600px;margin:0 auto 2rem;border:1px solid rgba(212,168,67,0.2);padding:1.5rem;background:rgba(0,0,0,0.2);">
+      <div style="font-family:'Cinzel Decorative',serif;color:var(--gold);font-size:0.85rem;margin-bottom:1rem;text-align:center;">⚠ Care & Refund Policy</div>
+      <div style="font-family:'IM Fell English',serif;font-style:italic;color:var(--cream);opacity:0.8;font-size:0.95rem;line-height:1.8;">
+        All Woolbound items are handmade and should be handled with care.<br><br>
+        🚫 <strong>Do not get these items wet at all</strong> — water permanently damages the wool texture and items will not be eligible for a refund if water damaged.<br><br>
+        🚫 <strong>Items deliberately damaged</strong> will not be eligible for a refund.<br><br>
+        ✅ Refunds are only available for items damaged during delivery or with a genuine manufacturing fault.
+      </div>
+    </div>
+
+    <div class="contact-box">
+      <div class="product-corner tl"></div>
+      <div class="product-corner tr"></div>
+      <div class="product-corner bl"></div>
+      <div class="product-corner br"></div>
+      <input type="text" placeholder="Your name, traveller...">
+      <input type="email" placeholder="Your raven address (email)...">
+      <textarea placeholder="What do you seek? Please include: the item you want, any custom colours or sizes, and your delivery address so we can send it to you..."></textarea>
+      <a id="sendBtn" href="#" class="hero-btn" onclick="sendEmail()">Send Message</a>
+    </div>
+  </section>
+
+</div>
+
+<!-- Footer -->
+<footer>
+  <p>✦ Woolbound ✦ Handmade in England ✦ Est. 2025-2026 ✦</p>
+  <p style="margin-top:0.5rem; font-size:0.9rem;">Woolbound is a DEEB venture</p>
+  <p style="margin-top:0.5rem; font-size:0.8rem;">Do not get wet · Each piece is unique · Made with magic</p>
+  <p style="margin-top:0.5rem; font-size:0.8rem;">🚚 We currently ship to England only</p>
+  <p style="margin-top:0.5rem; font-size:0.8rem; opacity:0.7;" id="footerEmail"></p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Pouch card slideshow
+  const slideshowImgs = [
+    'https://i.postimg.cc/sfKR8qCf/pencul-case.jpg',
+    'https://i.postimg.cc/tRd35Wfr/coin-sack.jpg',
+    'https://i.postimg.cc/1XQN2GJs/phone-pouch.jpg'
+  ];
+  let slideIndex = 0;
+  const slideImg = document.getElementById('slideImg');
+  const dots = document.querySelectorAll('.slide-dot');
+  setInterval(() => {
+    slideImg.style.opacity = '0';
+    setTimeout(() => {
+      slideIndex = (slideIndex + 1) % slideshowImgs.length;
+      slideImg.src = slideshowImgs[slideIndex];
+      slideImg.style.opacity = '1';
+      dots.forEach((d, i) => d.style.background = i === slideIndex ? 'rgba(212,168,67,0.9)' : 'rgba(212,168,67,0.3)');
+    }, 800);
+  }, 3000);
+
+  // Gold sparkle cursor trail
+  document.addEventListener('mousemove', (e) => {
+    for (let i = 0; i < 3; i++) {
+      const sparkle = document.createElement('div');
+      const size = Math.random() * 6 + 2;
+      const offsetX = (Math.random() - 0.5) * 16;
+      const offsetY = (Math.random() - 0.5) * 16;
+      sparkle.style.cssText = `
+        position: fixed;
+        left: ${e.clientX + offsetX}px;
+        top: ${e.clientY + offsetY}px;
+        width: ${size}px;
+        height: ${size}px;
+        border-radius: 50%;
+        background: radial-gradient(circle, #f0c060, #d4a843, transparent);
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%) scale(1);
+        opacity: ${Math.random() * 0.6 + 0.4};
+        transition: transform 0.6s ease, opacity 0.6s ease;
+      `;
+      document.body.appendChild(sparkle);
+      requestAnimationFrame(() => {
+        sparkle.style.transform = `translate(-50%, -50%) scale(0) translateY(-${Math.random() * 20 + 10}px)`;
+        sparkle.style.opacity = '0';
+      });
+      setTimeout(() => sparkle.remove(), 600);
+    }
+  });
+
+  // Footer email (split to avoid spam protection)
+  document.getElementById('footerEmail').textContent = '✉ woolbound.suggest' + '@' + 'outlook.com';
+
+  const RUNES = ['ᚹ','ᚱ','ᛟ','ᚦ','ᛗ','ᛁ','ᚠ','ᚾ','ᛉ','ᚲ','ᛏ','ᛒ','ᛖ','ᛚ','ᛜ','ᚨ','ᚢ','ᛞ'];
+
+  // Floating runes drifting across the stone
+  for (let i = 0; i < 18; i++) {
+    const r = document.createElement('div');
+    r.className = 'float-rune';
+    r.textContent = RUNES[i % RUNES.length];
+    const fromLeft = Math.random() > 0.5;
+    const startX = fromLeft ? '-5vw' : '105vw';
+    const endX   = fromLeft ? '110vw' : '-10vw';
+    const startY = (Math.random() * 90) + 'vh';
+    const endY   = ((parseFloat(startY) + (Math.random() * 20 - 10))) + 'vh';
+    const maxOp  = (Math.random() * 0.12 + 0.06).toFixed(3);
+    r.style.cssText = `
+      left: 0; top: 0;
+      font-size: ${Math.random() * 1.5 + 1}rem;
+      --startX: ${startX}; --startY: ${startY};
+      --endX: ${endX};     --endY: ${endY};
+      --rot: ${Math.random() * 40 - 20}deg;
+      --maxOpacity: ${maxOp};
+      --dur: ${Math.random() * 80 + 120}s;
+      --delay: -${Math.random() * 150}s;
+    `;
+    document.body.appendChild(r);
+  }
+
+  // Ember particles rising from the bottom
+  for (let i = 0; i < 35; i++) {
+    const e = document.createElement('div');
+    e.className = 'ember';
+    const size = Math.random() * 3 + 1.5;
+    e.style.cssText = `
+      width: ${size}px; height: ${size}px;
+      left: ${Math.random() * 100}vw;
+      bottom: ${Math.random() * 20}vh;
+      --drift:  ${(Math.random() * 60 - 30)}px;
+      --drift2: ${(Math.random() * 120 - 60)}px;
+      --dur: ${Math.random() * 12 + 14}s;
+      --delay: -${Math.random() * 20}s;
+    `;
+    document.body.appendChild(e);
+  }
+
+  // Pulsing crack overlay
+  const crackOverlay = document.createElement('div');
+  crackOverlay.className = 'crack-overlay';
+  crackOverlay.style.background = `
+    linear-gradient(127deg, transparent 19.5%, rgba(212,168,67,0.04) 20%, rgba(212,168,67,0.18) 21%, rgba(240,192,96,0.25) 21.5%, rgba(212,168,67,0.18) 22%, rgba(212,168,67,0.04) 22.5%, transparent 23%),
+    linear-gradient(230deg, transparent 34%, rgba(212,168,67,0.04) 34.5%, rgba(212,168,67,0.16) 35.5%, rgba(240,192,96,0.22) 36%, rgba(212,168,67,0.16) 36.5%, rgba(212,168,67,0.04) 37%, transparent 37.5%),
+    linear-gradient(15deg, transparent 54%, rgba(212,168,67,0.04) 54.5%, rgba(212,168,67,0.18) 55.5%, rgba(240,192,96,0.24) 56%, rgba(212,168,67,0.18) 56.5%, rgba(212,168,67,0.04) 57%, transparent 57.5%),
+    linear-gradient(310deg, transparent 9.5%, rgba(212,168,67,0.04) 10%, rgba(212,168,67,0.16) 11%, rgba(240,192,96,0.2) 11.5%, rgba(212,168,67,0.16) 12%, rgba(212,168,67,0.04) 12.5%, transparent 13%)
+  `;
+  document.body.appendChild(crackOverlay);
+
+  // Stars
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 120; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2.5 + 0.5;
+    s.style.cssText = `
+      width: ${size}px;
+      height: ${size}px;
+      top: ${Math.random() * 100}%;
+      left: ${Math.random() * 100}%;
+      --d: ${Math.random() * 3 + 2}s;
+      animation-delay: ${Math.random() * 4}s;
+    `;
+    starsEl.appendChild(s);
+  }
+
+  // Pouch panel
+  function openPouch() {
+    document.getElementById('pouchPanel').style.opacity = '1';
+    document.getElementById('pouchPanel').style.pointerEvents = 'all';
+    document.getElementById('pouchOverlay').style.opacity = '1';
+    document.getElementById('pouchOverlay').style.pointerEvents = 'all';
+    document.body.style.overflow = 'hidden';
+  }
+  function closePouch() {
+    document.getElementById('pouchPanel').style.opacity = '0';
+    document.getElementById('pouchPanel').style.pointerEvents = 'none';
+    document.getElementById('pouchOverlay').style.opacity = '0';
+    document.getElementById('pouchOverlay').style.pointerEvents = 'none';
+    document.body.style.overflow = '';
+  }
+
+  // Contact form email
+  function sendEmail() {
+    const name = document.querySelectorAll('.contact-box input')[0].value;
+    const email = document.querySelectorAll('.contact-box input')[1].value;
+    const message = document.querySelector('.contact-box textarea').value;
+    if (!name || !message) { alert('Please fill in your name and message!'); return; }
+    const subject = encodeURIComponent('Woolbound Enquiry from ' + name);
+    const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\nMessage:\n' + message);
+    window.location.href = `mailto:woolbound.suggest@outlook.com?subject=${subject}&body=${body}`;
+  }
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+
+  // Fade in cards on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.product-card:not(.no-fade)').forEach((card, i) => {
+    card.style.cssText += `opacity:0; transform:translateY(30px); transition: opacity 0.6s ${i*0.15}s, transform 0.6s ${i*0.15}s, border-color 0.4s, box-shadow 0.4s`;
+    observer.observe(card);
+  });
+  // Make no-fade cards always visible
+  document.querySelectorAll('.no-fade').forEach(card => {
+    card.style.opacity = '1';
+  });
+</script>
+
+<!-- Product Page Overlay -->
+<div id="productOverlay" onclick="closeProduct()" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:999;opacity:0;pointer-events:none;transition:opacity 0.4s;"></div>
+<div id="productPage" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:1000;opacity:0;pointer-events:none;transition:opacity 0.4s;overflow-y:auto;background:#110e0a;">
+
+  <!-- Back button -->
+  <div style="position:sticky;top:0;z-index:10;background:#110e0a;padding:1rem 2rem;border-bottom:1px solid rgba(212,168,67,0.2);display:flex;justify-content:space-between;align-items:center;">
+    <button onclick="closeProduct()" style="background:rgba(212,168,67,0.1);border:1px solid rgba(212,168,67,0.4);color:var(--gold);cursor:pointer;padding:0.5rem 1.2rem;font-family:'Cinzel Decorative',serif;font-size:0.75rem;letter-spacing:0.1em;transition:all 0.3s;" onmouseover="this.style.background='rgba(212,168,67,0.25)'" onmouseout="this.style.background='rgba(212,168,67,0.1)'">← Back to Wares</button>
+    <div style="font-family:'Cinzel Decorative',serif;color:var(--gold);font-size:0.8rem;opacity:0.6;">Woolbound</div>
+  </div>
+
+  <!-- Product layout -->
+  <div style="display:flex;flex-wrap:wrap;gap:3rem;padding:3rem 4rem;max-width:1100px;margin:0 auto;align-items:flex-start;">
+
+    <!-- Left: Image -->
+    <div style="flex:1;min-width:280px;max-width:480px;">
+      <img id="productImg" src="" alt="" style="width:100%;border-radius:2px;border:2px solid rgba(212,168,67,0.7);box-shadow:0 0 30px rgba(212,168,67,0.2),8px 8px 0 rgba(212,168,67,0.1),-8px -8px 0 rgba(212,168,67,0.1);outline:1px solid rgba(212,168,67,0.2);outline-offset:4px;transition:opacity 0.4s;">
+    </div>
+
+    <!-- Right: Info -->
+    <div style="flex:1;min-width:260px;">
+
+      <!-- Type + Colour switcher -->
+      <div style="margin-bottom:1.5rem;">
+        <div style="font-family:'Lora',serif;font-size:0.8rem;color:var(--mist);opacity:0.7;margin-bottom:0.6rem;letter-spacing:0.1em;">— choose style —</div>
+        <div id="typeButtons" style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem;"></div>
+        <div style="font-family:'Lora',serif;font-size:0.8rem;color:var(--mist);opacity:0.7;margin-bottom:0.6rem;letter-spacing:0.1em;">— available colours —</div>
+        <div id="colourButtons" style="display:flex;flex-wrap:wrap;gap:0.5rem;"></div>
+      </div>
+
+      <div style="width:100%;height:1px;background:linear-gradient(to right,rgba(212,168,67,0.4),transparent);margin-bottom:1.5rem;"></div>
+
+      <!-- Name -->
+      <div id="productName" style="font-family:'Cinzel Decorative',serif;color:var(--gold);font-size:1.6rem;margin-bottom:0.5rem;text-shadow:0 0 15px rgba(212,168,67,0.3);"></div>
+
+      <!-- Lore -->
+      <div id="productLore" style="font-family:'Lora',serif;font-style:italic;color:var(--mist);font-size:1rem;margin-bottom:1.2rem;opacity:0.8;"></div>
+
+      <!-- Description -->
+      <div id="productDesc" style="font-family:'Lora',serif;color:var(--cream);opacity:0.8;line-height:1.8;margin-bottom:1.5rem;font-size:0.95rem;"></div>
+
+      <!-- Price -->
+      <div id="productPrice" style="font-family:'Cinzel Decorative',serif;color:var(--ember);font-size:1.4rem;margin-bottom:2rem;"></div>
+
+      <!-- Order button -->
+      <a id="productOrderBtn" href="/cdn-cgi/l/email-protection#42352d2d2e202d372c266c31372525273136022d37362e2d2d296c212d2f" style="display:inline-block;background:rgba(212,168,67,0.1);border:1px solid rgba(212,168,67,0.6);color:var(--gold);padding:0.9rem 2rem;font-family:'Cinzel Decorative',serif;font-size:0.85rem;letter-spacing:0.15em;text-decoration:none;transition:all 0.3s;cursor:pointer;" onmouseover="this.style.background='rgba(212,168,67,0.25)';this.style.boxShadow='0 0 20px rgba(212,168,67,0.2)'" onmouseout="this.style.background='rgba(212,168,67,0.1)';this.style.boxShadow='none'">✦ Contact to Order ✦</a>
+
+      <div style="margin-top:1rem;font-family:'Lora',serif;font-size:0.8rem;color:var(--mist);opacity:0.6;font-style:italic;">We'll reply within 2 days · England shipping only</div>
+    </div>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const PRODUCTS = {
+  band: {
+    name: "Enchanted Band",
+    lore: "\u201cA small magic, worn on the wrist\u201d",
+    desc: "A handmade finger-knitted bracelet. Small, quick to make and full of charm. Each one is unique — no two are exactly alike.",
+    price: "\u00a33.50",
+    subject: "Woolbound Order \u2014 Enchanted Band",
+    types: [
+      {
+        label: "Enchanted Band",
+        price: "\u00a33.50",
+        colours: [
+          { label: "Red/White/Green", img: "https://i.postimg.cc/nh9NkXDZ/IMG_20260312_142431517_MFNR.jpg" },
+          { label: "Green/Blue/White", img: "https://i.postimg.cc/dVZgBhyJ/IMG_20260312_142423132_MFNR.jpg" },
+        ]
+      }
+    ]
+  },
+  pouch: {
+    name: "Traveller\u2019s Pouch",
+    lore: "\u201cEvery adventurer needs somewhere to keep their treasures\u201d",
+    desc: "Handmade chunky finger-knitted pouches. Each one is unique \u2014 no two are exactly alike. Choose your style and colour and we'll make it to order just for you.",
+    price: "From \u00a36",
+    subject: "Woolbound Order \u2014 Traveller's Pouch",
+    types: [
+      {
+        label: "Coin Sack",
+        price: "£6",
+        colours: [
+          { label: "Red/White/Green", img: "https://i.postimg.cc/tRd35Wfr/coin-sack.jpg" },
+        ]
+      },
+      {
+        label: "Phone Pouch",
+        price: "£9",
+        colours: [
+          { label: "Red/White/Green", img: "https://i.postimg.cc/1XQN2GJs/phone-pouch.jpg" },
+        ]
+      },
+      {
+        label: "Pencil Pouch",
+        price: "£8",
+        colours: [
+          { label: "Red/White/Green", img: "https://i.postimg.cc/sfKR8qCf/pencul-case.jpg" },
+        ]
+      },
+    ]
+  }
+};
+
+function buildColourButtons(colours) {
+  const btnContainer = document.getElementById('colourButtons');
+  btnContainer.innerHTML = '';
+  colours.forEach((c, i) => {
+    const btn = document.createElement('button');
+    btn.textContent = c.label;
+    btn.style.cssText = `background:${i===0?'rgba(212,168,67,0.25)':'rgba(212,168,67,0.08)'};border:1px solid rgba(212,168,67,${i===0?'0.8':'0.3'});color:var(--gold);padding:0.4rem 0.9rem;font-family:'Lora',serif;font-size:0.8rem;cursor:pointer;transition:all 0.3s;`;
+    btn.onclick = () => {
+      const img = document.getElementById('productImg');
+      img.style.opacity = '0';
+      setTimeout(() => { img.src = c.img; img.style.opacity = '1'; }, 400);
+      btnContainer.querySelectorAll('button').forEach(b => {
+        b.style.background = 'rgba(212,168,67,0.08)';
+        b.style.borderColor = 'rgba(212,168,67,0.3)';
+      });
+      btn.style.background = 'rgba(212,168,67,0.25)';
+      btn.style.borderColor = 'rgba(212,168,67,0.8)';
+    };
+    btnContainer.appendChild(btn);
+  });
+  // Set first image
+  if (colours.length > 0) {
+    const img = document.getElementById('productImg');
+    img.style.opacity = '0';
+    setTimeout(() => { img.src = colours[0].img; img.style.opacity = '1'; }, 200);
+  }
+}
+
+function openProduct(id) {
+  const p = PRODUCTS[id];
+  if (!p) return;
+
+  document.getElementById('productName').textContent = p.name;
+  document.getElementById('productLore').textContent = p.lore;
+  document.getElementById('productDesc').textContent = p.desc;
+  document.getElementById('productPrice').textContent = p.price;
+  document.getElementById('productOrderBtn').href = `mailto:woolbound.suggest@outlook.com?subject=${encodeURIComponent(p.subject)}`;
+
+  // Build type buttons
+  const typeContainer = document.getElementById('typeButtons');
+  typeContainer.innerHTML = '';
+
+  if (p.types) {
+    p.types.forEach((t, i) => {
+      const btn = document.createElement('button');
+      btn.textContent = t.label;
+      btn.style.cssText = `background:${i===0?'rgba(212,168,67,0.25)':'rgba(212,168,67,0.08)'};border:1px solid rgba(212,168,67,${i===0?'0.8':'0.3'});color:var(--gold);padding:0.4rem 0.9rem;font-family:'Cinzel Decorative',serif;font-size:0.7rem;cursor:pointer;transition:all 0.3s;letter-spacing:0.05em;`;
+      btn.onclick = () => {
+        typeContainer.querySelectorAll('button').forEach(b => {
+          b.style.background = 'rgba(212,168,67,0.08)';
+          b.style.borderColor = 'rgba(212,168,67,0.3)';
+        });
+        btn.style.background = 'rgba(212,168,67,0.25)';
+        btn.style.borderColor = 'rgba(212,168,67,0.8)';
+        document.getElementById('productPrice').textContent = t.price;
+        buildColourButtons(t.colours);
+      };
+      typeContainer.appendChild(btn);
+    });
+    // Init with first type
+    buildColourButtons(p.types[0].colours);
+    document.getElementById('productPrice').textContent = p.types[0].price;
+  } else {
+    buildColourButtons(p.colours || []);
+  }
+
+  const overlay = document.getElementById('productOverlay');
+  const page = document.getElementById('productPage');
+  overlay.style.opacity = '1';
+  overlay.style.pointerEvents = 'auto';
+  page.style.opacity = '1';
+  page.style.pointerEvents = 'auto';
+  page.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProduct() {
+  document.getElementById('productOverlay').style.opacity = '0';
+  document.getElementById('productOverlay').style.pointerEvents = 'none';
+  document.getElementById('productPage').style.opacity = '0';
+  document.getElementById('productPage').style.pointerEvents = 'none';
+  document.body.style.overflow = '';
+}
+
+// Keep old pouch functions as aliases
+function openPouch() { openProduct('pouch'); }
+function closePouch() { closeProduct(); }
+</script>
+</body>
+</html>
