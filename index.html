@@ -843,6 +843,25 @@
 
 <!-- Footer -->
 <footer>
+  <div class="contact-box">
+    <h3 style="color:var(--gold); font-family:'Cinzel Decorative';">Consult the Spirits</h3>
+    <input type="text" id="magicInput" placeholder="Type: Wet, Size, or Stock">
+    <br>
+    
+    <button class="hero-btn" onclick="(function(){
+        const i = document.getElementById('magicInput');
+        const r = document.getElementById('magicResponse');
+        const val = i.value.toLowerCase();
+        let a = 'The spirits are quiet...';
+        if (val.includes('wet')) a = '⚠️ KEEP DRY: Water ruins the magic!';
+        if (val.includes('size')) a = 'Stretchy magic fits all!';
+        if (val.includes('stock')) a = 'Crafting in progress!';
+        r.innerText = a;
+        i.value = '';
+    })()">Cast Summons</button>
+    
+    <p id="magicResponse" style="margin-top: 20px; color: var(--gold); font-style: italic;"></p>
+</div>
   <p>✦ Woolbound ✦ Handmade in England ✦ Est. 2025-2026 ✦</p>
   <p style="margin-top:0.5rem; font-size:0.9rem;">Woolbound is a DEEB venture</p>
   <p style="margin-top:0.5rem; font-size:0.8rem;">Do not get wet · Each piece is unique · Made with magic</p>
