@@ -858,10 +858,18 @@
         const i = document.getElementById('magicInput');
         const r = document.getElementById('magicResponse');
         const val = i.value.toLowerCase();
-        let a = 'The spirits are quiet...';
+        let a = 'i dont know what you are saying';
         if (val.includes('wet')) a = '⚠️ KEEP DRY: Water ruins the magic!';
         if (val.includes('size')) a = 'Stretchy magic fits all!';
         if (val.includes('stock')) a = 'Crafting in progress!';
+        if (val.includes('magic')) a = 'these items are bound to the magic!';
+        if (val.includes('hamurber')) a = 'THE SECRET WORD!';
+        if (val.includes('price')) a = 'coins pass and go magic is forever!';
+        if (val.includes('newsletter')) a = 'we dont have one!';
+        if (val.includes('game')) a = 'if you want to play a game go to our main site!';
+        if (val.includes('killswitch')) a = 'thats our founders name!';
+        if (val.includes('bot')) a = 'thats fun these resonces arent even automated they are lines of code!';
+        if (val.includes('discord')) a = 'oh that reminds me we have a discord idk where tho';
         r.innerText = a;
         i.value = '';
     })()">Cast Summons</button>
